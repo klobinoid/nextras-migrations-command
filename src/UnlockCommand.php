@@ -28,7 +28,7 @@ class UnlockCommand extends Console\Command\Command
 
     public function configure()
     {
-        $this->setName('migrate:unlock');
+        $this->setName('migrations:unlock');
         $this->setDescription('Unlocks database migrations');
     }
 

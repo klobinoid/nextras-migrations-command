@@ -42,7 +42,7 @@ class MigrationsCommand extends Command
 
     public function configure()
     {
-        $this->setName('migrate');
+        $this->setName('migrations:migrate');
         $this->setDescription('Runs database migrations');
         $this->addArgument('names', InputArgument::IS_ARRAY);
         $this->addOption('reset', NULL, InputOption::VALUE_NONE);
@@ -75,9 +75,9 @@ class MigrationsCommand extends Command
             $this->fireEvent('nextras.migrations.success');
             $this->fireEvent('nextras.migrations.complete');
 
-            $this->getApplication()->find('migrate:unlock')
+            $this->getApplication()->find('migrations:unlock')
                 ->run(new ArrayInput([
-                    'command' => 'migrate:unlock',
+                    'command' => 'migrations:unlock',
                 ]), $output);
         } catch (Exception $e) {
             $this->fireEvent('nextras.migrations.fail');
