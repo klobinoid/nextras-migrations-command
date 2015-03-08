@@ -15,22 +15,28 @@ class MigrationsExtension extends DI\CompilerExtension
 
 	/** @var array */
 	private $defaults = [
-		'table' => 'migrations',
+        'driver' => 'Nextras\Migrations\Drivers\MySqlNetteDbDriver',
+        'table' => 'migrations',
+        'schema' => NULL,
 		'groups' => [],
 		'extensions' => [],
 	];
-
-
 
 	public function loadConfiguration()
 	{
 		$config = $this->getConfig($this->defaults);
 		$container = $this->getContainerBuilder();
 
+        $driverParams = [
+            'tableName' => $config['table']
+        ];
+
+        if ($config['schema']) {
+            $driverParams['schema'] = $config['schema'];
+        }
+
 		$container->addDefinition($this->prefix('driver'))
-			->setClass('Nextras\Migrations\Drivers\MySqlNetteDbDriver', [
-				'tableName' => $config['table'],
-			]);
+			->setClass($config['driver'], $driverParams);
 
 		$controller = $container->addDefinition($this->prefix('controller'))
 			->setClass('Nextras\Migrations\Controllers\ConsoleController');

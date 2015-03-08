@@ -28,6 +28,8 @@ migrations:
 		sql: Nextras\Migrations\Extensions\NetteDbSql
 	groups:
 		structures: %appDir%/../sql
+    driver: Nextras\Migrations\Drivers\PgSqlNetteDbDriver # driver for PostgreSQL or your own
+    schema: default # optional param for PostgreSQL		
 ```
 
 4) By default, migrations use Nette\Database to connect to DB.
